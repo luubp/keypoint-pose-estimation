@@ -1,0 +1,53 @@
+MODEL:
+  DEVICE: cuda:0
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+  CENTERNET:
+    DECONV_CHANNEL: [960, 256, 128, 64] #960 mobilenetv3large
+    DECONV_KERNEL: [4, 4, 4]
+    NUM_CLASSES: 1
+    NUM_KEYPOINTS: 17
+    DOWN_SCALE: 4
+    MIN_OVERLAP: 0.7
+    BBOX_CONF: 0.2
+    KEYPOINT_HEATMAP_CONF: 0.3
+    MAX_OBJECT_NUM: 50
+  LOSS:
+    HEATMAP_WEIGHT: 1
+    WH_WEIGHT: 0.1
+    OFFSET_WEIGHT: 1
+    XY_KEYPOINTS_WEIGHT: 1
+    HEATMAP_KEYPOINTS_WEIGHT: 1
+    OFFSET_KEYPOINTS_WEIGHT: 1
+
+INPUT:
+  INPUT_SIZE: [512, 512]
+  AUG:
+    HORIZONTAL_FLIP: 1 #else 0
+    HORIZONTAL_FLIP_PROB: 0.5
+  OUTPUT_SIZE: [128, 128]
+
+DATALOADER:
+  NUM_WORKERS: 4
+
+DATASETS:
+  DATA_DIR: ./
+  COCO_KEYPOINTS: [
+    'nose',            # 1
+    'left_eye',        # 2
+    'right_eye',       # 3
+    'left_ear',        # 4
+    'right_ear',       # 5
+    'left_shoulder',   # 6
+    'right_shoulder',  # 7
+    'left_elbow',      # 8
+    'right_elbow',     # 9
+    'left_wrist',      # 10
+    'right_wrist',     # 11
+    'left_hip',        # 12
+    'right_hip',       # 13
+    'left_knee',       # 14
+    'right_knee',      # 15
+    'left_ankle',      # 16
+    'right_ankle',     # 17
+  ] 
